@@ -13,7 +13,7 @@ var app = express();
 app.use(serveStatic('static', {'index': ['index.html']}));
 
 // Start Express http server on port 8080
-var webServer = http.createServer(app).listen(8080);
+var webServer = http.createServer(app).listen(process.env.PORT || 3000);
 
 // Start Socket.io so it attaches itself to Express server
 var socketServer = socketIo.listen(webServer, {"log level":1});
@@ -54,6 +54,6 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 });
 
 //listen on port 8080
-webServer.listen(8080, function () {
-    console.log('listening on http://localhost:8080');
+webServer.listen(process.env.PORT || 3000, function () {
+    console.log('listening on http://localhost:'+process.env.PORT || 3000);
 });
