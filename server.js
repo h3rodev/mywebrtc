@@ -3,7 +3,7 @@ var http    = require("http");              // http server core module
 var express = require("express");           // web framework external module
 var serveStatic = require('serve-static');  // serve static files
 var socketIo = require("socket.io");        // web socket external module
-var easyrtc = require("../");               // EasyRTC external module
+var easyrtc = require("./");               // EasyRTC external module
 
 // Set process name
 process.title = "node-easyrtc";
@@ -13,7 +13,7 @@ var app = express();
 app.use(serveStatic('static', {'index': ['index.html']}));
 
 // Start Express http server on port 8080
-var webServer = http.createServer(app).listen(process.env.PORT || 3000);
+var webServer = http.createServer(app).listen(8080);
 
 // Start Socket.io so it attaches itself to Express server
 var socketServer = socketIo.listen(webServer, {"log level":1});
@@ -54,6 +54,6 @@ var rtc = easyrtc.listen(app, socketServer, null, function(err, rtcRef) {
 });
 
 //listen on port 8080
-webServer.listen(process.env.PORT || 3000, function () {
-    console.log('listening on http://localhost:'+process.env.PORT || 3000);
+webServer.listen(8080, function () {
+    console.log('listening on http://localhost:8080');
 });
